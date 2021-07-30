@@ -75,7 +75,6 @@ class TheOffice:
 
 my_office = TheOffice("MROK")
 
-
 # my_office.add_worker("Szymon", "Majewski", 4880, 25, "male", "883229949")
 # my_office.add_worker("Kuba", "Andrzejuk", 5600)
 # my_office.add_worker("Ludwika", "Arseniuk", 3800, 30, "female")
