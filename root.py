@@ -43,8 +43,8 @@ class TheOffice:
         for worker in self.all_of_them:
             if worker.name == worker_name:
                 if worker.surname == worker_surname:
-                    worker_contact_string = f"Name: {worker_name}, Surname: {worker_surname},\n" \
-                                            f"Phone number: {worker.phone_number}, email: {worker.email}\n"
+                    worker_contact_string = f"*     Name: {worker_name}, Surname: {worker_surname},\n" \
+                                            f"*     Phone number: {worker.phone_number}, email: {worker.email}\n"
                     return worker_contact_string
 
     def add_hour_worker(self, worker_name, worker_surname, hours):
