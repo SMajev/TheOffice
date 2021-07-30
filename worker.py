@@ -16,7 +16,7 @@ class Worker:
     salary: float = 0
 
     def __repr__(self):
-        return f"Name: {self.name}, Surname: {self.surname},\nPosition: {self.position}, Salary: {self.salary}\n\n"
+        return f"*  Name: {self.name}, Surname: {self.surname},\n  *  Position: {self.position}, Salary: {self.salary}\n\n"
 
     def count_salary(self):
         self.salary = self.salary_per_hour * self.worked_in_hour
