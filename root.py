@@ -19,6 +19,12 @@ class TheOffice:
         for worker in self.all_of_them:
             print(worker)
 
+    def show_contact_all_of_them(self):
+        for worker in self.all_of_them:
+            worker_contact_string = f"*     Name: {worker.name}, Surname: {worker.surname},\n" \
+                                    f"      Phone number: {worker.phone_number}, email: {worker.email}\n"
+            print((worker_contact_string))
+
     def set_salary_for_worker(self, worker_name, worker_surname, value):
         for worker in self.all_of_them:
             if worker.name == worker_name:
@@ -88,10 +94,10 @@ print("\n\n")
 my_office.show_workers()
 
 print("\n\n")
-
-print(my_office.show_contact_worker("Szymon", "Majewski"))
-print(my_office.show_contact_worker("Kuba", "Andrzejuk"))
-print(my_office.show_contact_worker("Ludwika", "Arseniuk"))
-print(my_office.show_contact_worker("Przemek", "Puchalski"))
+my_office.show_contact_all_of_them()
+# print(my_office.show_contact_worker("Szymon", "Majewski"))
+# print(my_office.show_contact_worker("Kuba", "Andrzejuk"))
+# print(my_office.show_contact_worker("Ludwika", "Arseniuk"))
+# print(my_office.show_contact_worker("Przemek", "Puchalski"))
 
 print("\n\n\n\n")
