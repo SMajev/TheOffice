@@ -16,13 +16,16 @@ class Worker:
     salary: float = 0
 
     def __repr__(self):
-        return f"*     Name: {self.name}, Surname: {self.surname},\n      Position: {self.position}, Salary: {self.salary}\n "
+        return f"   *     Name: {self.name}, Surname: {self.surname},\n" \
+               f"         Position: {self.position}, Salary: {self.salary}\n "
 
     def show_contact(self):
-        return f"*     Name: {self.name}, Surname: {self.surname},\n      Phone number: {self.phone_number}, email: {self.email}\n"
+        return f"   *     Name: {self.name}, Surname: {self.surname},\n" \
+               f"         Phone number: {self.phone_number}, email: {self.email}\n"
 
     def show_finance(self):
-        return f"*     Name: {self.name}, Surname: {self.surname},\n      Salary: {self.salary}$, = {self.salary_per_hour}$ X {self.worked_in_hour}h\n"
+        return f"   *     Name: {self.name}, Surname: {self.surname},\n" \
+               f"         Salary: {self.salary}$, = {self.salary_per_hour}$ X {self.worked_in_hour}h\n"
 
     def count_salary(self):
         self.salary = self.salary_per_hour * self.worked_in_hour
