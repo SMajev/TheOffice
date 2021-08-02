@@ -1,19 +1,70 @@
-from dataclasses import dataclass
 from worker import Worker
 import pickle
+import datetime
+from timelog import TimeLog
 
 
 class TheOffice:
     def __init__(self, company_name):
         self.company_name = company_name
         self.all_of_them = self.load_workers_from_file()
+        self.all_of_logs = self.load_logs_from_file()
+        self.count_salary_for_everyone()
+        self.sort_workers_by_surname()
+        self.now = datetime.datetime.now().strftime('\nDate: %d, %b %Y, Time: %H:%M:%S\n')
+
+        self.safe_logs_to_file()
+        print(self.now)
 
     def __repr__(self):
-        return f"Company: {self.company_name},\nWorkers:\n{self.all_of_them}"
+        return f"Company: {self.company_name},\n"  # Workers:\n{self.all_of_them}"
 
     def add_worker(self, name, surname, sallary, age=None, sex=None, phone_number=None, email=None):
         unit = Worker(name, surname, sallary, self, age, sex, phone_number, email)
         self.all_of_them.append(unit)
+        self.add_log("add worker")
+
+    def add_log(self, operation):
+        print("List of Logs:\n")
+        log = TimeLog(operation)
+        self.all_of_logs.append(log)
+
+    def sort_workers_by_surname(self):
+        self.all_of_them.sort(key=lambda x: x.surname)
+
+    def sort_workers_by_name(self):
+        self.all_of_them.sort(key=lambda x: x.name)
+
+    def sort_workers_by_position(self):
+        self.all_of_them.sort(key=lambda x: x.position)
+
+
+
+
+    def show_workers(self):
+        self.add_log("Worker list")
+        print(f"Time: {self.clock_working()}")
+        for worker in self.all_of_them:
+            print(worker)
+
+    def show_logs(self):
+        for log in self.all_of_logs:
+            print(log)
+
+    def show_contact_worker(self, worker_name, worker_surname):
+        self.clock_working()
+        for worker in self.all_of_them:
+            if worker.name == worker_name:
+                if worker.surname == worker_surname:
+                    print(worker.show_contact())
+
+    def show_contact_all_of_them(self):
+        for worker in self.all_of_them:
+            print(worker.show_contact())
+
+    def show_finance(self):
+        for worker in self.all_of_them:
+            print(worker.show_finance())
 
     def set_salary_for_worker(self, worker_name, worker_surname, value):
         for worker in self.all_of_them:
@@ -39,14 +90,6 @@ class TheOffice:
                 if worker.surname == worker_surname:
                     worker.position = position
 
-    def show_contact_worker(self, worker_name, worker_surname):
-        for worker in self.all_of_them:
-            if worker.name == worker_name:
-                if worker.surname == worker_surname:
-                    worker_contact_string = f"*     Name: {worker_name}, Surname: {worker_surname},\n" \
-                                            f"*     Phone number: {worker.phone_number}, email: {worker.email}\n"
-                    return worker_contact_string
-
     def add_hour_worker(self, worker_name, worker_surname, hours):
         for worker in self.all_of_them:
             if worker.name == worker_name:
@@ -64,44 +107,25 @@ class TheOffice:
             worker.count_salary()
 
     def safe_workers_to_file(self):
-        with open("workers.pickle", "wb") as out_file:
+        with open(".workers.pickle", "wb") as out_file:
             pickle.dump(self.all_of_them, out_file)
 
     def load_workers_from_file(self):
-        with open("workers.pickle", "rb") as in_file:
+        with open(".workers.pickle", "rb") as in_file:
             workers = pickle.load(in_file)
             return workers
 
+    def safe_logs_to_file(self):
+        with open(".logs.pickle", "wb") as out_files:
+            pickle.dump(self.all_of_logs, out_files)
 
-my_office = TheOffice("MROK")
+    def load_logs_from_file(self):
+        with open(".logs.pickle", "rb") as in_files:
+            logs = pickle.load(in_files)
+            return logs
 
-# my_office.add_worker("Szymon", "Majewski", 4880, 25, "male", "883229949")
-# my_office.add_worker("Kuba", "Andrzejuk", 5600)
-# my_office.add_worker("Ludwika", "Arseniuk", 3800, 30, "female")
-#
-# my_office.set_salary_for_worker("Szymon", "Majewski", 24)
-# my_office.set_salary_for_worker("Kuba", "Andrzejuk", 21)
-# my_office.set_salary_for_worker("Ludwika", "Arseniuk", 26)
-#
-# for _ in range(5):
-#     my_office.add_hour_worker("Szymon", "Majewski", 8)
-# for _ in range(5):
-#     my_office.add_hour_worker("Kuba", "Andrzejuk", 8)
-# for _ in range(5):
-#     my_office.add_hour_worker("Ludwika", "Arseniuk", 8)
-#
-# print(my_office.show_contact_worker("Szymon", "Majewski"))
+    def clear_logs_pernamently(self):
+        self.all_of_logs = []
 
-#
-
-my_office.count_salary_for_everyone()
-
-my_office.safe_workers_to_file()
-print("\n\n")
-print(my_office)
-print("\n\n")
-print(my_office.show_contact_worker("Szymon", "Majewski"))
-print(my_office.show_contact_worker("Kuba", "Andrzejuk"))
-print(my_office.show_contact_worker("Ludwika", "Arseniuk"))
-print(my_office.show_contact_worker("Przemek", "Puchalski"))
-print("\n\n\n\n")
+    def clock_working(self):
+        return self.now
