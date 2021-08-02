@@ -12,7 +12,6 @@ class Main:
 
     def main_loop(self):
         while self.__still_on == True:
-
             self.print_menu()
             self.way = int(input("What's next?: "))
             print("\n\n\n")
@@ -32,11 +31,14 @@ class Main:
 
             if self.way == 0:
                 self.my_office.safe_logs_to_file()
+                self.my_office.safe_workers_to_file()
                 self.__still_on = False
 
     def print_menu(self):
-        print(f"\n\n:1:.. Show Workers\n"
-              f":2:.. Show Logs\n"
+        print(f"\n...:::Menu:::...  "
+              f"\n\n:1:.. Show Workers\n"
+              f":2:.. Add worker\n"
+              f":3:.. Show Logs\n"
               f":5:.. Clear Logs\n\n"
               f"\n:0:.. Exit & Save\n\n")
 

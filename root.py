@@ -19,7 +19,7 @@ class TheOffice:
     def __repr__(self):
         return f"Company: {self.company_name},\n"  # Workers:\n{self.all_of_them}"
 
-    def add_worker(self, name, surname, sallary, age=None, sex=None, phone_number=None, email=None):
+    def add_worker(self, name, surname, sallary=0, age=None, sex=None, phone_number=None, email=None):
         unit = Worker(name, surname, sallary, self, age, sex, phone_number, email)
         self.all_of_them.append(unit)
         self.add_log("add worker")
@@ -37,9 +37,6 @@ class TheOffice:
 
     def sort_workers_by_position(self):
         self.all_of_them.sort(key=lambda x: x.position)
-
-
-
 
     def show_workers(self):
         self.add_log("Worker list")
